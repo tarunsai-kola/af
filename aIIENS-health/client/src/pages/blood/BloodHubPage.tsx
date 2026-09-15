@@ -460,16 +460,7 @@ export default function BloodHubPage() {
             </div>
           ))}
 
-          <div className="mt-6">
-            <Link
-              to="/blood/become-donor"
-              id="link-register-donor"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 transition-colors text-sm w-full justify-center"
-            >
-              <Droplet className="w-4 h-4" />
-              Register as Donor
-            </Link>
-          </div>
+
         </div>
       </section>
 
