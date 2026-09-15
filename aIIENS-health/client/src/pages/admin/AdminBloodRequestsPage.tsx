@@ -57,8 +57,8 @@ export default function AdminBloodRequestsPage() {
         <h1 className="text-2xl font-bold text-surface-900">Blood Emergencies Verification</h1>
       </div>
 
-      {error && <Alert type="error" message={error} onClose={() => setError('')} />}
-      {success && <Alert type="success" message={success} onClose={() => setSuccess('')} />}
+      {error && <Alert variant="error">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
 
       <div className="grid gap-4">
         {requests.length === 0 ? (

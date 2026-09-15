@@ -45,7 +45,7 @@ export interface ApiError {
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
-export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'PUBLIC_USER' | 'DONOR' | 'PATIENT_GUARDIAN' | 'HOSPITAL_VERIFIER' | 'CASE_OFFICER' | 'MEDICAL_REVIEWER' | 'FRAUD_REVIEWER' | 'CAMPAIGN_APPROVER' | 'FINANCE_OFFICER';
+export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'PUBLIC_USER' | 'DONOR' | 'PATIENT_GUARDIAN' | 'HOSPITAL_VERIFIER' | 'CASE_OFFICER' | 'MEDICAL_REVIEWER' | 'FRAUD_REVIEWER' | 'CAMPAIGN_APPROVER' | 'FINANCE_OFFICER' | 'FINANCE_ADMIN';
 
 export interface AuthUser {
   id: string;

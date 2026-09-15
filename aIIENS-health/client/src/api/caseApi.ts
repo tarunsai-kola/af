@@ -43,6 +43,7 @@ export interface PatientCase {
   urgency?: string;
   status: string;
   verificationGates?: VerificationGate[];
+  documents?: any[];
   createdAt: string;
   updatedAt: string;
 }
