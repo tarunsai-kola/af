@@ -1,0 +1,23 @@
+# Git
+node_modules/
+dist/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Uploads
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Build artifacts
+client/dist/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
