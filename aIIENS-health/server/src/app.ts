@@ -64,6 +64,12 @@ export function createApp(): Application {
 
   // ── API routes ─────────────────────────────────────────────────────────────
   app.use('/api', apiRouter);
+  
+  // Mount on root as well for Vercel, which strips the /api prefix
+  // when routing to serverless functions in the api/ directory.
+  if (process.env.VERCEL === '1') {
+    app.use('/', apiRouter);
+  }
 
   // ── 404 catch-all ──────────────────────────────────────────────────────────
   app.use(notFound);
