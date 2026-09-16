@@ -88,11 +88,13 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
 
     if (!email || !password) {
       throw new AppError('Email and password are required', 400);
     }
+    
+    email = email.trim().toLowerCase();
 
     const user = await User.findOne({ email }).select('+passwordHash');
     if (!user) {
