@@ -52,6 +52,16 @@ export function createApp(): Application {
   // ── Global rate limiter ────────────────────────────────────────────────────
   app.use(globalRateLimiter);
 
+  // ── Health Check ───────────────────────────────────────────────────────────
+  app.get('/', (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: 'AIIENS Health API is running',
+      environment: env.NODE_ENV,
+      timestamp: new Date().toISOString()
+    });
+  });
+
   // ── API routes ─────────────────────────────────────────────────────────────
   app.use('/api', apiRouter);
 
