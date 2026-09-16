@@ -1,14 +1,22 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import crypto from 'crypto';
 import { AppError } from './AppError';
 
-const uploadDir = path.join(__dirname, '../../uploads/private');
+// Vercel serverless functions have a read-only filesystem except for /tmp
+const isVercel = process.env.VERCEL === '1';
+const baseDir = isVercel ? os.tmpdir() : path.join(__dirname, '../../');
+const uploadDir = path.join(baseDir, 'uploads/private');
 
 // Ensure upload directory exists
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('Failed to create upload directory. This is expected in some serverless environments:', err);
 }
 
 const storage = multer.diskStorage({
