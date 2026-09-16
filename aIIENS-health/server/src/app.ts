@@ -53,7 +53,7 @@ export function createApp(): Application {
   app.use(globalRateLimiter);
 
   // ── Health Check ───────────────────────────────────────────────────────────
-  app.get('/', (req, res) => {
+  app.get('/', (_req, res) => {
     res.status(200).json({
       success: true,
       message: 'AIIENS Health API is running',
