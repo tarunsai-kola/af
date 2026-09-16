@@ -398,7 +398,7 @@ async function seedPatientCases(users: mongoose.Document[], hospitals: mongoose.
       ],
       fundraisingTarget: 40000000,
       urgency: 'high',
-      status: 'approved',
+      status: 'APPROVED',
       assignedOfficerId: officer._id,
       approvedAt: pastDate(10),
     },
@@ -423,7 +423,7 @@ async function seedPatientCases(users: mongoose.Document[], hospitals: mongoose.
       ],
       fundraisingTarget: 8000000,
       urgency: 'critical',
-      status: 'fundraising',
+      status: 'LIVE',
       assignedOfficerId: officer._id,
       approvedAt: pastDate(20),
     },
@@ -520,7 +520,7 @@ async function seedMedicalCamps(users: mongoose.Document[], hospitals: mongoose.
       capacity: 200,
       registeredCount: 67,
       attendedCount: 0,
-      status: 'scheduled',
+      status: 'PUBLISHED',
     },
     {
       title: `${DEMO_TAG} Child Vaccination Drive — Nagpur`,
@@ -549,7 +549,7 @@ async function seedMedicalCamps(users: mongoose.Document[], hospitals: mongoose.
       capacity: 150,
       registeredCount: 143,
       attendedCount: 138,
-      status: 'completed',
+      status: 'COMPLETED',
     },
   ]);
 
@@ -559,7 +559,7 @@ async function seedMedicalCamps(users: mongoose.Document[], hospitals: mongoose.
 
 async function seedBloodRequests(hospitals: mongoose.Document[]) {
   console.log('  → Seeding blood requests...');
-  await BloodRequest.deleteMany({ 'location.city': { $in: ['Hyderabad', 'Nagpur'] }, status: 'open' });
+  await BloodRequest.deleteMany({ 'location.city': { $in: ['Hyderabad', 'Nagpur'] }, status: 'ACTIVE' });
 
   const hospital1 = hospitals[0] as { _id: Types.ObjectId };
   const hospital2 = hospitals[1] as { _id: Types.ObjectId };
@@ -580,7 +580,7 @@ async function seedBloodRequests(hospitals: mongoose.Document[]) {
       contactName: 'Blood Bank Coordinator',
       contactPhone: '+914023456791',
       notes: `${DEMO_TAG} Required for cardiac surgery patient`,
-      status: 'open',
+      status: 'ACTIVE',
       fulfilledUnits: 0,
       expiresAt: futureDate(7),
     },
@@ -599,7 +599,7 @@ async function seedBloodRequests(hospitals: mongoose.Document[]) {
       contactName: 'Emergency Dept',
       contactPhone: '+917123456791',
       notes: `${DEMO_TAG} Emergency — accident case`,
-      status: 'open',
+      status: 'ACTIVE',
       fulfilledUnits: 0,
       expiresAt: futureDate(3),
     },
@@ -620,7 +620,7 @@ async function seedAuditEvents(users: mongoose.Document[], campaigns: mongoose.D
     {
       actorUserId: admin._id,
       actorRole: 'SUPER_ADMIN',
-      action: 'approve',
+      action: 'CAMPAIGN_APPROVED',
       objectType: 'Campaign',
       objectId: campaign1._id,
       changeSummary: `${DEMO_TAG} Campaign status changed from 'pending_review' to 'active'`,
@@ -631,7 +631,7 @@ async function seedAuditEvents(users: mongoose.Document[], campaigns: mongoose.D
     {
       actorUserId: admin._id,
       actorRole: 'SUPER_ADMIN',
-      action: 'create',
+      action: 'CASE_CREATED',
       objectType: 'Hospital',
       changeSummary: `${DEMO_TAG} Hospital 'Apollo Multispeciality' registered and verified`,
       source: 'admin_panel',
@@ -641,7 +641,7 @@ async function seedAuditEvents(users: mongoose.Document[], campaigns: mongoose.D
     {
       actorUserId: null,
       actorRole: 'system',
-      action: 'flag',
+      action: 'RISK_FLAG_CREATED',
       objectType: 'Donation',
       changeSummary: `${DEMO_TAG} Automated risk flag raised for unusual transaction pattern`,
       source: 'system',
