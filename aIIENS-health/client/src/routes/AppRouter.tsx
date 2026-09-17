@@ -40,6 +40,8 @@ const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const DonationPolicyPage = lazy(() => import('@/pages/DonationPolicyPage'));
+const TransparencyPage = lazy(() => import('@/pages/TransparencyPage'));
+const ComingSoonPage = lazy(() => import('@/pages/ComingSoonPage'));
 
 const CreateFundraiserPage = lazy(() => import('@/pages/CreateFundraiserPage')); // Keeping old one just in case, but let's override route
 
@@ -299,6 +301,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: 'transparency',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TransparencyPage />
+          </Suspense>
+        ),
+      },
+      {
         path: 'about',
         element: (
           <Suspense fallback={<PageLoader />}>
@@ -335,6 +345,38 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <DonationPolicyPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'partner',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ComingSoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'volunteer',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ComingSoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'assistance',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ComingSoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'ngo-network',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ComingSoonPage />
           </Suspense>
         ),
       },
