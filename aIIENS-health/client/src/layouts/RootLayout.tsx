@@ -7,7 +7,7 @@ export function RootLayout() {
   const isAdminRoute = location.pathname.startsWith('/admin');
   
   // Pages that have a dark full-bleed hero section that should go under the transparent Navbar
-  const isDarkHeroPage = location.pathname === '/impact' || location.pathname === '/transparency';
+  const isDarkHeroPage = ['/impact', '/transparency', '/blood'].includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-surface-50">

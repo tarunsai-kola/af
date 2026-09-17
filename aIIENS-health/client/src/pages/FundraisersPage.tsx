@@ -79,45 +79,10 @@ export default function FundraisersPage() {
 
   return (
     <div className="bg-surface-50 min-h-screen pb-20">
-      {/* Hero Section */}
-      <section className="bg-brand-900 text-white py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <HeartPulse className="w-16 h-16 mx-auto mb-6 text-brand-300 opacity-80" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            Help Save a Life Today
-          </h1>
-          <p className="text-xl text-brand-100 mb-8 max-w-2xl mx-auto">
-            100% of your donation goes directly to verified partner hospitals for the patient's treatment. 
-            Zero platform fees. Total transparency.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-brand-900 hover:bg-surface-100 font-bold" onClick={() => {
-              const el = document.getElementById('browse-section');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}>
-              Browse Fundraisers
-            </Button>
-            <Link 
-              to="/fundraisers/create" 
-              className="inline-flex items-center justify-center font-medium rounded-xl h-12 px-7 text-base bg-transparent hover:bg-brand-800 text-brand-100 border border-brand-400 transition-all duration-200"
-            >
-              Start a Fundraiser
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Main Content */}
       <section id="browse-section" className="container mx-auto px-4 py-12 md:py-16">
         
-        {/* Trust Banner */}
-        <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-10 flex flex-col md:flex-row items-center gap-4 justify-center text-center md:text-left text-emerald-800 animate-fade-in">
-          <ShieldCheck className="w-8 h-8 text-emerald-600 shrink-0" />
-          <p className="font-medium text-sm md:text-base">
-            <strong>AIIENS Promise:</strong> Every case is medically verified. Funds are settled directly to the treating hospital's bank account to prevent fraud.
-          </p>
-        </div>
 
         {/* Filters & Search */}
         <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-surface-200 mb-10 sticky top-20 z-20">

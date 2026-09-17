@@ -43,34 +43,34 @@ function timeAgo(dateStr: string) {
 }
 
 /* ─── urgency styles ────────────────────────────────────────────────── */
-const urgencyConfig: Record<string, { label: string; bg: string; text: string; border: string; bar: string }> = {
+const urgencyConfig: Record<string, { label: string; bg: string; text: string; border: string; glow: string }> = {
   critical: {
     label: 'CRITICAL',
-    bg: 'bg-red-50',
-    text: 'text-red-600',
-    border: 'border-red-200',
-    bar: 'bg-red-600',
+    bg: 'bg-red-500/10',
+    text: 'text-red-400',
+    border: 'border-red-500/20',
+    glow: 'shadow-[0_0_15px_rgba(239,68,68,0.3)]',
   },
   high: {
     label: 'URGENT',
-    bg: 'bg-orange-50',
-    text: 'text-orange-600',
-    border: 'border-orange-200',
-    bar: 'bg-orange-500',
+    bg: 'bg-orange-500/10',
+    text: 'text-orange-400',
+    border: 'border-orange-500/20',
+    glow: 'shadow-[0_0_15px_rgba(249,115,22,0.2)]',
   },
   medium: {
     label: 'MEDIUM',
-    bg: 'bg-blue-50',
-    text: 'text-blue-600',
-    border: 'border-blue-200',
-    bar: 'bg-blue-500',
+    bg: 'bg-blue-500/10',
+    text: 'text-blue-400',
+    border: 'border-blue-500/20',
+    glow: 'shadow-[0_0_15px_rgba(59,130,246,0.2)]',
   },
   low: {
     label: 'LOW',
-    bg: 'bg-green-50',
-    text: 'text-green-600',
-    border: 'border-green-200',
-    bar: 'bg-green-500',
+    bg: 'bg-emerald-500/10',
+    text: 'text-emerald-400',
+    border: 'border-emerald-500/20',
+    glow: 'shadow-[0_0_15px_rgba(16,185,129,0.2)]',
   },
 };
 
@@ -89,16 +89,16 @@ function BloodCard({ req, distKm }: { req: any; distKm?: number }) {
   return (
     <Link
       to={`/blood/requests/${req._id}`}
-      className="relative block bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 overflow-hidden group p-6"
+      className="relative block bg-surface-900/40 backdrop-blur-xl rounded-3xl border border-surface-800 hover:border-red-500/30 shadow-lg hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:-translate-y-1 transition-all duration-500 overflow-hidden group p-6"
     >
       {/* Subtle background glow based on urgency */}
-      <div className={`absolute top-0 right-0 w-32 h-32 opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 rounded-full ${urg.bar}`} />
+      <div className="absolute top-0 right-0 w-32 h-32 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100 rounded-full bg-red-500/10 pointer-events-none" />
 
       {/* header row */}
       <div className="flex items-start justify-between mb-5 relative z-10">
         <div className="flex flex-col gap-2">
           <span
-            className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl ${urg.bg} ${urg.text} border ${urg.border} shadow-sm w-fit`}
+            className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl ${urg.bg} ${urg.text} border ${urg.border} ${urg.glow} w-fit`}
           >
             {(req.urgency === 'critical' || req.urgency === 'high') && (
               <Flame className="w-3.5 h-3.5 animate-pulse" />
@@ -106,7 +106,7 @@ function BloodCard({ req, distKm }: { req: any; distKm?: number }) {
             {urg.label}
           </span>
           {req.hospitalId && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-black tracking-wider uppercase text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl w-fit">
+            <span className="inline-flex items-center gap-1 text-[10px] font-black tracking-wider uppercase text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl w-fit shadow-[0_0_10px_rgba(16,185,129,0.1)]">
               <BadgeCheck className="w-3.5 h-3.5" />
               Verified Request
             </span>
@@ -114,27 +114,27 @@ function BloodCard({ req, distKm }: { req: any; distKm?: number }) {
         </div>
 
         {/* blood group badge */}
-        <div className="w-16 h-16 bg-gradient-to-br from-rose-100 to-rose-200 shadow-sm shadow-rose-200/50 rounded-2xl flex items-center justify-center shrink-0 border border-rose-300/50 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-          <span className="text-rose-700 font-black text-2xl leading-none drop-shadow-sm">{req.bloodGroup}</span>
+        <div className="w-16 h-16 bg-gradient-to-br from-red-500/10 to-red-600/20 shadow-[0_0_15px_rgba(239,68,68,0.2)] rounded-2xl flex items-center justify-center shrink-0 border border-red-500/30 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_0_25px_rgba(239,68,68,0.4)] transition-all duration-500">
+          <span className="text-red-400 font-black text-2xl leading-none drop-shadow-sm">{req.bloodGroup}</span>
         </div>
       </div>
 
       {/* hospital / requester name */}
       <div className="relative z-10 mb-4">
-        <h3 className="font-black text-slate-900 text-xl leading-tight mb-1.5 group-hover:text-rose-600 transition-colors line-clamp-1">
+        <h3 className="font-bold text-white text-xl leading-tight mb-1.5 group-hover:text-red-400 transition-colors line-clamp-1">
           {req.contactName || req.hospitalId?.name || req.location?.hospitalName || 'Individual Request'}
         </h3>
         
         {/* distance + time */}
-        <div className="flex items-center gap-3 text-sm text-slate-500 font-medium">
+        <div className="flex items-center gap-3 text-sm text-slate-400 font-medium">
           <span className="flex items-center gap-1">
-            <Clock className="w-4 h-4 text-slate-400" />
+            <Clock className="w-4 h-4 text-slate-500" />
             {timeAgo(req.createdAt)}
           </span>
           {distKm !== undefined && (
             <span className="flex items-center gap-1">
-              <span className="w-1 h-1 rounded-full bg-slate-300" />
-              <MapPin className="w-4 h-4 text-rose-400" />
+              <span className="w-1 h-1 rounded-full bg-surface-700" />
+              <MapPin className="w-4 h-4 text-red-400/70" />
               {distKm.toFixed(1)} km
             </span>
           )}
@@ -142,21 +142,21 @@ function BloodCard({ req, distKm }: { req: any; distKm?: number }) {
       </div>
 
       {/* Progress / Stats section */}
-      <div className="bg-slate-50/80 backdrop-blur-sm rounded-2xl p-4 mb-5 border border-slate-100 relative z-10 group-hover:bg-rose-50/50 transition-colors duration-500">
+      <div className="bg-surface-950/50 backdrop-blur-sm rounded-2xl p-4 mb-5 border border-surface-800 relative z-10 group-hover:border-red-500/20 transition-colors duration-500">
         <div className="flex justify-between items-end mb-2">
           <div>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-wide group-hover:text-rose-600/70 transition-colors">Pints Required</p>
-            <p className="text-2xl font-black text-slate-900 leading-none mt-1">
-              {pintsRemaining} <span className="text-sm font-semibold text-slate-500">of {totalUnits}</span>
+            <p className="text-xs text-slate-500 font-bold uppercase tracking-wide">Pints Required</p>
+            <p className="text-2xl font-black text-white leading-none mt-1">
+              {pintsRemaining} <span className="text-sm font-semibold text-slate-400">of {totalUnits}</span>
             </p>
           </div>
           <div className="text-right">
-            <p className="text-xs font-bold text-slate-500">{Math.round(progressPercent)}% Fulfilled</p>
+            <p className="text-xs font-bold text-red-400/80">{Math.round(progressPercent)}% Fulfilled</p>
           </div>
         </div>
-        <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+        <div className="w-full bg-surface-800 h-2 rounded-full overflow-hidden shadow-inner">
           <div 
-            className="h-full bg-gradient-to-r from-rose-400 to-rose-600 rounded-full transition-all duration-1000 ease-out relative" 
+            className="h-full bg-gradient-to-r from-red-600 to-red-400 rounded-full transition-all duration-1000 ease-out relative shadow-[0_0_10px_rgba(239,68,68,0.5)]" 
             style={{ width: `${Math.max(5, progressPercent)}%` }}
           >
             <div className="absolute inset-0 bg-white/20 animate-pulse" />
@@ -165,7 +165,7 @@ function BloodCard({ req, distKm }: { req: any; distKm?: number }) {
       </div>
 
       {/* CTA */}
-      <div className="w-full bg-slate-900 group-hover:bg-rose-600 text-white font-black tracking-wide py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm shadow-md group-hover:shadow-rose-500/30 relative z-10 overflow-hidden">
+      <div className="w-full bg-surface-800/80 border border-surface-700 group-hover:bg-red-600 group-hover:border-red-500 text-slate-300 group-hover:text-white font-bold tracking-wide py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm shadow-md group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] relative z-10 overflow-hidden">
         <Droplet className="w-5 h-5 group-hover:animate-bounce" />
         Donate Blood Now
       </div>
@@ -203,7 +203,7 @@ function LocationBanner({
   }
   if (status === 'unsupported') {
     return (
-      <div className="flex items-center gap-2 text-sm text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2.5 rounded-xl">
+      <div className="flex items-center gap-2 text-sm text-slate-400 bg-surface-900 border border-surface-800 px-4 py-2.5 rounded-xl">
         <AlertTriangle className="w-4 h-4 shrink-0" />
         Geolocation not supported. Showing all active requests.
       </div>
@@ -215,7 +215,7 @@ function LocationBanner({
       id="btn-use-location"
       onClick={onRequest}
       disabled={status === 'requesting'}
-      className="flex items-center gap-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 px-4 py-2.5 rounded-xl hover:bg-rose-100 transition-colors disabled:opacity-60 cursor-pointer"
+      className="flex items-center gap-2 text-sm font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-4 py-2.5 rounded-xl hover:bg-red-500/20 transition-colors disabled:opacity-60 cursor-pointer shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]"
     >
       {status === 'requesting' ? (
         <Loader2 className="w-4 h-4 animate-spin shrink-0" />
@@ -323,55 +323,33 @@ export default function BloodHubPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 animate-fade-in">
+    <div className="min-h-screen bg-surface-950 pt-24 pb-20 relative overflow-hidden">
+      
+      {/* Cinematic Background */}
+      <div 
+        className="absolute inset-0 z-0 opacity-30 mix-blend-overlay"
+        style={{
+          backgroundImage: 'url(/assets/blood_donation_bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      {/* Dark overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-surface-950/80 via-surface-950/95 to-surface-950 z-0 pointer-events-none" />
 
-      {/* ── Hero ────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden py-16 px-6"
-        style={{ background: 'linear-gradient(135deg, #be123c 0%, #e11d48 50%, #f43f5e 100%)' }}
-      >
-        <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative max-w-4xl mx-auto text-center">
-          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <Droplet className="w-9 h-9 text-white" fill="currentColor" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-            AIIENS Blood Hub
-          </h1>
-          <p className="text-rose-100 text-lg max-w-2xl mx-auto mb-8">
-            Real-time blood donation matching — find urgent requests near you and save a life today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              to="/blood/raise"
-              id="link-raise-emergency"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-rose-700 font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm"
-            >
-              <AlertTriangle className="w-5 h-5" />
-              🚨 Raise Blood Emergency
-            </Link>
-            <Link
-              to="/blood/donors"
-              id="link-find-donors"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-rose-800/50 text-white font-bold rounded-xl border border-white/20 hover:bg-rose-800/70 transition-all text-sm"
-            >
-              <Users className="w-5 h-5" />
-              Find Donors
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Ambient background glows */}
+      <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[150px] pointer-events-none z-0" />
+      <div className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
       {/* ── Nearby Requests ─────────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 py-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <section className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-10">
           <div>
-            <h2 className="text-2xl font-black text-slate-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
               {geoStatus === 'granted' ? '📍 Nearby Requests' : '🩸 Active Blood Requests'}
             </h2>
-            <p className="text-sm text-slate-500 mt-0.5">
+            <p className="text-slate-400 mt-2 text-lg">
               {isLoading ? 'Loading…' : `${sortedRequests.length} urgent request${sortedRequests.length !== 1 ? 's' : ''} need donors`}
             </p>
           </div>
@@ -384,14 +362,14 @@ export default function BloodHubPage() {
             <p className="text-slate-500">Loading requests…</p>
           </div>
         ) : isError ? (
-          <div className="text-center py-12 text-red-500 font-medium">
+          <div className="text-center py-12 text-red-400 bg-surface-900/50 rounded-2xl border border-surface-800">
             Failed to load blood requests. Please try again later.
           </div>
         ) : sortedRequests.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-slate-200">
-            <Droplet className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-slate-800 mb-2">No active requests right now</h3>
-            <p className="text-slate-500 text-sm">Check back soon — lives depend on timely donations.</p>
+          <div className="text-center py-20 bg-surface-900/50 backdrop-blur-md rounded-3xl border border-surface-800 shadow-xl">
+            <Droplet className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">No active requests right now</h3>
+            <p className="text-slate-400 text-sm">Check back soon — lives depend on timely donations.</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 gap-5">
@@ -402,11 +380,11 @@ export default function BloodHubPage() {
         )}
 
         {sortedRequests.length > 6 && (
-          <div className="text-center mt-8">
+          <div className="text-center mt-12">
             <Link
               to="/blood/requests"
               id="link-view-all-requests"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 transition-colors text-sm shadow"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-surface-800 hover:bg-surface-700 text-white font-bold rounded-xl border border-surface-700 hover:border-surface-600 transition-all text-sm shadow-lg"
             >
               View All {sortedRequests.length} Requests
               <ChevronRight className="w-4 h-4" />
@@ -416,32 +394,31 @@ export default function BloodHubPage() {
       </section>
 
       {/* ── Impact Story ────────────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 pb-8">
+      <section className="container mx-auto px-4 max-w-4xl pt-16 pb-8 relative z-10">
         <div
-          className="rounded-2xl p-7 flex flex-col sm:flex-row items-center gap-6"
-          style={{ background: 'linear-gradient(135deg, #86efac 0%, #4ade80 100%)' }}
+          className="rounded-3xl p-8 flex flex-col sm:flex-row items-center gap-8 bg-surface-900/50 backdrop-blur-xl border border-surface-800 shadow-xl"
         >
-          <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-lg bg-green-200 flex items-center justify-center">
-            <Star className="w-10 h-10 text-green-600" fill="currentColor" />
+          <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 border-4 border-surface-800 bg-brand-500/10 flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.2)]">
+            <Star className="w-10 h-10 text-brand-400" fill="currentColor" />
           </div>
           <div>
-            <p className="text-green-800 text-xs font-bold uppercase tracking-widest mb-2">
+            <p className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-3">
               Impact Story
             </p>
-            <blockquote className="text-green-900 font-black text-lg leading-snug mb-2">
+            <blockquote className="text-white font-bold text-xl leading-snug mb-3">
               "A simple donation saved my daughter's life." — Sarah M.
             </blockquote>
-            <p className="text-green-800 text-sm">
-              Read how your O-donation made a difference last month.
+            <p className="text-slate-400 text-sm">
+              Read how your O- donation made a difference last month.
             </p>
           </div>
         </div>
       </section>
 
       {/* ── Eligibility Checklist ────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 pb-16">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
-          <h2 className="text-lg font-black text-slate-900 mb-5">Eligibility Checklist</h2>
+      <section className="container mx-auto px-4 max-w-4xl pb-16 relative z-10">
+        <div className="bg-surface-900/40 backdrop-blur-md rounded-3xl border border-surface-800 shadow-xl p-8">
+          <h2 className="text-xl font-bold text-white mb-6">Eligibility Checklist</h2>
           {[
             'Aged between 18 and 65 years',
             'Weighs at least 50 kg (110 lbs)',
@@ -451,24 +428,22 @@ export default function BloodHubPage() {
           ].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-3 py-3 border-b border-slate-100 last:border-0"
+              className="flex items-center gap-4 py-4 border-b border-surface-800/50 last:border-0"
             >
-              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-green-600" />
+              <div className="w-8 h-8 bg-emerald-500/10 rounded-full flex items-center justify-center shrink-0 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               </div>
-              <span className="text-slate-700 text-sm font-medium">{item}</span>
+              <span className="text-slate-300 font-medium">{item}</span>
             </div>
           ))}
-
-
         </div>
       </section>
 
       {/* ── Disclaimer ──────────────────────────────── */}
-      <section className="bg-slate-900 text-slate-400 py-10 px-6 text-center">
+      <section className="relative z-10 bg-surface-900/80 border-t border-surface-800 text-slate-400 py-10 px-6 text-center">
         <div className="max-w-3xl mx-auto text-xs leading-relaxed">
           <Droplet className="w-6 h-6 mx-auto mb-3 text-slate-600" />
-          <p className="font-bold text-slate-300 mb-1">Platform Disclaimer</p>
+          <p className="font-bold text-slate-300 mb-2">Platform Disclaimer</p>
           <p>
             AIIENS Health operates strictly as a technology discovery platform to connect voluntary
             donors with patients in need. We do not collect, test, store, or distribute blood. We
